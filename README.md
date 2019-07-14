@@ -1,2 +1,2 @@
-# Sistema-de-Venda
-Sistema de Venda e cadastro de produto em banco de dados.
+# Sistema-de-Vendas
+Sistema de Vendas e cadastro de produtos em banco de dados.
