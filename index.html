@@ -5,7 +5,8 @@
     <title>Photon</title>
     <meta charset="utf-8" />
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="photon/dist/css/photon.css">
+    <link rel="stylesheet" href="photon/dist/css/photon.css" />
+    <link rel="stylesheet" href="style.css" />
     <!-- Electron Javascript -->
     <script src="app.js" charset="utf-8"></script>
 </head>
@@ -15,7 +16,7 @@
     <div class="window">
         <!-- .toolbar-header sits at the top of your app -->
         <header class="toolbar toolbar-header">
-            <h1 class="title">Photon</h1>
+            <h1 class="title">Sistema de Vendas</h1>
 
             <div class="toolbar-actions">
                 <div class="btn-group">
@@ -42,16 +43,18 @@
             <div class="pane-group">
               <div class="pane-sm sidebar">Cadastro de Clientes</div>
               <div class="pane">
-                  <form method="" action="">
+                  <form method="" action="" class="pane-body">
                       <h3>Cadastro de Clientes</h3>
                       <div class="form-group">
-                          <input type="text" class="form-control" placeholder="Nome" />
+                          <input type="text" id="nome" class="form-control" placeholder="Nome" />
 
-                          <input type="text" class="form-control" placeholder="CPF" />
+                          <input type="text" id="cpf" class="form-control" placeholder="CPF" />
 
-                          <input type="text" class="form-control" placeholder="Telefone" />
+                          <input type="text" id="telefone" class="form-control" placeholder="Telefone" />
 
-                      </div>
+                          <button type="button" id="salvar" class="btn btn-positive">Salvar</button>
+                      
+                        </div>
                   </form>
               </div>
             </div>

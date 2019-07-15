@@ -1,0 +1,15 @@
+.pane-body{
+    padding: 1rem;
+}
+
+input{
+    margin-bottom: 5px;
+}
+
+input:focus{
+    cursor:text;
+}
+
+.pane-body button, .pane-body button *{
+    cursor: pointer !important;
+}
