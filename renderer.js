@@ -1,6 +1,4 @@
- var loki = require ('./node_modules/lokijs')
-// import loki from 'lokijs/build/lokijs.min.js';
-// imported.src = 'lokijs/build/lokijs.min.js';
+ var loki = require ('lokijs')
 
 var db = new loki('db.json')
 var clientes = db.addCollection('clientes')
