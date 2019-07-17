@@ -1,16 +1,15 @@
- var loki = require ('lokijs')
-
+var loki = require('lokijs')
 var db = new loki('db.json')
 var clientes = db.addCollection('clientes')
 
 clientes.insert({
-    nome:'fernando',
+    nome: 'fernando',
     email: 'fernandorosajr@gmail.com'
 });
 db.save()
 
-function ready(fn){
-    if (document.readyState != 'loading'){
+function ready(fn) {
+    if (document.readyState != 'loading') {
         fn();
     } else {
         document.addEventListener('DOMContentLoaded', fn);
@@ -18,13 +17,13 @@ function ready(fn){
 }
 
 ready(function () {
-    document.querySelector('#salvar').addEventListener('click', function(e){
+    document.querySelector('#salvar').addEventListener('click', function (e) {
         e.preventDefault();
         let data = {
             nome: document.querySelector('#nome').value,
             cpf: document.querySelector('#cpf').value,
             telefone: document.querySelector('#telefone').value,
-          
+
         };
         clientes.insert(data);
         db.save();

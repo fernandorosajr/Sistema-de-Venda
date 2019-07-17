@@ -2,71 +2,64 @@
 <html>
 
 <head>
-    <title>Photon</title>
-    <meta charset="utf-8" />
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="photon/dist/css/photon.css" />
-    <link rel="stylesheet" href="style.css" />
-    <!-- Electron Javascript
+  <title>Photon</title>
+  <meta charset="utf-8" />
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="photon/dist/css/photon.css" />
+  <link rel="stylesheet" href="style.css" />
+  <!-- Electron Javascript
     <script src="app.js" charset="utf-8"></script> -->
 </head>
 
 <body>
-    <!-- Wrap your entire app inside .window -->
-    <div class="window">
-        <!-- .toolbar-header sits at the top of your app -->
-        <header class="toolbar toolbar-header">
-            <h1 class="title">Sistema de Vendas</h1>
+  <!-- Wrap your entire app inside .window -->
+  <div class="window">
+    <!-- .toolbar-header sits at the top of your app -->
+    <header class="toolbar toolbar-header">
+      <h1 class="title">Sistema de Vendas</h1>
 
-            <div class="toolbar-actions">
-                <div class="btn-group">
-                  <button class="btn btn-default">
-                    <span class="icon icon-home"></span>
-                  </button>
-                  <button class="btn btn-default">
-                    <span class="icon icon-folder"></span>
-                  </button>
-                  <button class="btn btn-default active">
-                    <span class="icon icon-cloud"></span>
-                  </button>
-                  <button class="btn btn-default">
-                    <span class="icon icon-popup"></span>
-                  </button>
-                  <button class="btn btn-default">
-                    <span class="icon icon-shuffle"></span>
-                  </button>
-                </div>
-        </header>
+      <div class="toolbar-actions">
+        <div class="btn-group">
+          <button class="btn btn-default">
+            <span class="icon icon-home"></span>
+          </button>
+          <button class="btn btn-default">
+            <span class="icon icon-folder"></span>
+          </button>
+          <button class="btn btn-default active">
+            <span class="icon icon-cloud"></span>
+          </button>
+          <button class="btn btn-default">
+            <span class="icon icon-popup"></span>
+          </button>
+          <button class="btn btn-default">
+            <span class="icon icon-shuffle"></span>
+          </button>
+        </div>
+    </header>
 
-        <!-- Your app's content goes inside .window-content -->
-        <div class="window-content">
-            <div class="pane-group">
-              <div class="pane-sm sidebar">Cadastro de Clientes</div>
-              <div class="pane">
-                  <form method="" action="" class="pane-body" id="cadastro-cliente">
-                      <h3>Cadastro de Clientes</h3>
-                      <div class="form-group">
-                          <input type="text" id="nome" class="form-control" placeholder="Nome" />
+    <!-- Your app's content goes inside .window-content -->
+    <div class="window-content">
+      <div class="pane-group">
+        <div class="pane-sm sidebar">Cadastro de Clientes</div>
+        <div class="pane">
 
-                          <input type="text" id="cpf" class="form-control" placeholder="CPF" />
-
-                          <input type="text" id="telefone" class="form-control" placeholder="Telefone" />
-
-                          <button type="button" id="salvar" class="btn btn-positive">Salvar</button>
-                      
-                        </div>
-                  </form>
-              </div>
-            </div>
-          </div>
-          <footer class="toolbar toolbar-footer">
-
-            <h1 class="title">Footer</h1>
-          </footer>
+        </div>
+      </div>
     </div>
-    <!-- You can also require other files to run in this process -->
-    <script src="renderer.js"></script>
+    <footer class="toolbar toolbar-footer">
 
+      <h1 class="title">Footer</h1>
+    </footer>
+  </div>
 </body>
+
+<!-- You can also require other files to run in this process -->
+<script>
+  var loki = require('lokijs')
+  var db = new loki('db.json')
+  console.log(db);
+  // var clientes = db.addCollection('clientes')
+</script>
 
 </html>
