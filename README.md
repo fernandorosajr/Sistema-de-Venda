@@ -6,3 +6,4 @@ Sistema de Vendas e cadastro de produtos em banco de dados.
 - Electron (https://electronjs.org/);
 - Photon (http://photonkit.com/);
 - Lokijs (http://lokijs.org/);
+- read-file-utf8(https://www.npmjs.com/package/read-file-utf8);
