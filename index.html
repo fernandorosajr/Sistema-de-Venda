@@ -43,7 +43,24 @@
       <div class="pane-group">
         <div class="pane-sm sidebar">Cadastro de Clientes</div>
         <div class="pane">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Telefone</th>
+              </tr>
+            </thead>
 
+            <tbody>
+              <tr v-for="cliente in clientes">
+                <td>{{cliente.nome}}</td>
+                <td>{{cliente.cpf}}</td>
+                <td>{{cliente.telefone}}</td>
+              </tr>
+            </tbody>
+
+          </table>
         </div>
       </div>
     </div>
@@ -62,9 +79,24 @@
   var data = read(__dirname + '/db.json');
 
   db.loadJSON(data);
+  window.Vue = require('vue');
+  var clientes = db.getCollection('clientes')
+
   console.log(db);
 
-    // var clientes = db.addCollection('clientes')
+  new Vue({
+    el: '',
+    data: {
+      clientes: []
+    },
+
+    ready: function () {
+      this.clientes = clientes.data;
+      console.log(this.clientes)
+    }
+  })
+
+
 </script>
 
 </html>
