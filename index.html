@@ -42,7 +42,7 @@
         </button>
       </div>
     </header>
-    <div class="window-content">
+    <div class="window-content" id="app">
       <div class="pane-group">
         <div class="pane-sm sidebar">Cadastro de Clientes</div>
 
@@ -53,9 +53,10 @@
                 <th>Nome</th>
                 <th>CPF</th>
                 <th>Telefone</th>
+                <th></th>
               </tr>
             </thead>
-            <tbody id="app">
+            <tbody>
               <tr v-for="cliente in clientes">
                 <td>
                   {{cliente.nome}}
@@ -66,13 +67,36 @@
                 <td>
                   {{cliente.telefone}}
                 </td>
-
+                <td>
+                  <button type="button" class="btn btn-primary" @click=editClient(cliente)>Editar</button>
+                </td>
               </tr>
-
-
 
             </tbody>
           </table>
+        </div>
+        <div id="modal" v-if="openModal">
+          <div class="wrap">
+            <div class="toolbar toolbar-header toolbar-modal">
+              <h3 class="title">Cadastro de Clientes</h3>
+            </div>
+            <form method="" action="" class="pane-body" id="cadastro-cliente">
+
+              <div class="form-group">
+
+                <input type="text" id="nome" class="form-control" placeholder="Nome" />
+
+                <input type="text" id="cpf" class="form-control" placeholder="CPF" />
+
+                <input type="text" id="telefone" class="form-control" placeholder="Telefone" />
+
+                <button type="button" id="salvar" class="btn btn-positive">Salvar</button>
+
+                <button type="button" id="salvar" class="btn btn-negative">Fechar</button>
+              </div>
+            </form>
+
+          </div>
         </div>
       </div>
     </div>
@@ -80,25 +104,8 @@
       <h1 class="title">Footer</h1>
     </footer>
   </div>
-  <div id="modal">
-    <div class="wrap">
 
-      <form method="" action="" class="pane-body" id="cadastro-cliente">
-        <h3>Cadastro de Clientes</h3>
-        <div class="form-group">
-          <input type="text" id="nome" class="form-control" placeholder="Nome" />
 
-          <input type="text" id="cpf" class="form-control" placeholder="CPF" />
-
-          <input type="text" id="telefone" class="form-control" placeholder="Telefone" />
-
-          <button type="button" id="salvar" class="btn btn-positive">Salvar</button>
-
-        </div>
-      </form>
-
-    </div>
-  </div>
 </body>
 <!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
 <script src="vue.js"></script>
@@ -114,11 +121,18 @@
   new Vue({
     el: '#app',
     data: {
-      clientes: []
+      clientes: [],
+      openModal: false
     },
     mounted: function () {
       this.clientes = clientes.data;
       console.log(this.clientes);
+    },
+
+    methods: {
+      editClient: function () {
+        this.openModal = true;
+      }
     }
   })
 </script>
