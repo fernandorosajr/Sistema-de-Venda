@@ -24,7 +24,6 @@ input:focus{
 }
 
 #modal .wrap{
-   
     height: 60%;
     width: 60%;
     
@@ -32,6 +31,4 @@ input:focus{
     margin: auto;
     margin-top: 60px;
     border-radius: 5px;
-
-
 }
