@@ -13,3 +13,25 @@ input:focus{
 .pane-body button, .pane-body button *{
     cursor: pointer !important;
 }
+
+#modal{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: rgba(0,0,0, 0.7);
+}
+
+#modal .wrap{
+   
+    height: 60%;
+    width: 60%;
+    
+    background-color: #fff;
+    margin: auto;
+    margin-top: 60px;
+    border-radius: 5px;
+
+
+}
