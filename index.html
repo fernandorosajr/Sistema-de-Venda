@@ -34,7 +34,7 @@
 
         <button class="btn btn-primary" @click="createClient">
           <span class="icon icon-home icon-text"></span>
-          Cadastro de Clientes
+          Novo Cliente
         </button>
 
 
@@ -50,7 +50,24 @@
     </header>
     <div class="window-content">
       <div class="pane-group">
-        <div class="pane-sm sidebar">Cadastro de Clientes</div>
+       
+        <div class="pane-sm sidebar">
+          <nav class="nav-group">
+            <h5 class="nav-group-title">Menu</h5>
+            <a href="index.html" class="nav-group-item active">
+              <span class="icon icon-home"></span>
+              Clientes
+            </a>
+            <a href="produtos.html" class="nav-group-item">
+              <span class="icon icon-download"></span>
+              Produtos
+            </a>
+            <a href="vendas.html" class="nav-group-item">
+              <span class="icon icon-folder"></span>
+              Vendas
+            </a>
+          </nav>
+        </div>
 
         <div class="pane">
           <table class="table table-striped">
