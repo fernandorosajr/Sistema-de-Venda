@@ -101,8 +101,8 @@
                 <input type="text" id="telefone" class="form-control" placeholder="Telefone"
                   v-model="client.telefone" />
 
-                <button type="button" id="salvar" class="btn btn-positive">Salvar</button>
-                <button type="button" id="salvar" class="btn btn-negative" @click="openModal=false">Fechar</button>
+                <button type="button" id="salvar" @click="clientStoreOrUpdate" class="btn btn-positive">Salvar</button>
+                <button type="button" id="fechar" class="btn btn-negative" @click="openModal=false">Fechar</button>
               </div>
             </form>
 
@@ -161,7 +161,16 @@
           cpf: '',
           telefone: ''
         }
+      },
 
+      clientStoreOrUpdate: function () {
+        if (typeof this.client.$loki != 'undefined') {
+          clientes.update(this.client);
+        } else {
+          clientes.insert(this.client);
+        }
+        db.save();
+        this.openModal = false;
       }
 
     }
