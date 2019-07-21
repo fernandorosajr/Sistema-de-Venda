@@ -2,7 +2,7 @@
     padding: 1rem;
 }
 
-input{
+input, select{
     margin-bottom: 5px;
 }
 

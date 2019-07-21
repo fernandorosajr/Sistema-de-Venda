@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sistema de vendas</title>
+    <meta charset="utf-8" />
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="photon/dist/css/photon.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="window" id="app">
+        <header class="toolbar toolbar-header">
+            <h1 class="title">Sistema de Vendas</h1>
+            <div class="toolbar-actions">
+                <div class="btn-group">
+                    <button class="btn btn-default">
+                        <span class="icon icon-home"></span>
+                    </button>
+                    <button class="btn btn-default">
+                        <span class="icon icon-folder"></span>
+                    </button>
+                    <button class="btn btn-default active">
+                        <span class="icon icon-cloud"></span>
+                    </button>
+                    <button class="btn btn-default">
+                        <span class="icon icon-popup"></span>
+                    </button>
+                    <button class="btn btn-default">
+                        <span class="icon icon-shuffle"></span>
+                    </button>
+                </div>
+
+                <button class="btn btn-primary" @click="createClient">
+                    <span class="icon icon-home icon-text"></span>
+                    Nova Venda
+                </button>
+
+
+                <button class="btn btn-default">
+                    <span class="icon icon-home icon-text"></span>
+                    Filters
+                </button>
+
+                <button class="btn btn-default btn-dropdown pull-right">
+                    <span class="icon icon-megaphone"></span>
+                </button>
+            </div>
+        </header>
+        <div class="window-content">
+            <div class="pane-group">
+
+                <div class="pane-sm sidebar">
+                    <nav class="nav-group">
+                        <h5 class="nav-group-title">Menu</h5>
+                        <a href="index.html" class="nav-group-item ">
+                        <span class="icon icon-home"></span>
+                            Clientes
+                        </a>
+                        <a href="produtos.html" class="nav-group-item">
+                            <span class="icon icon-download"></span>
+                            Produtos
+                        </a>
+                        <a href="vendas.html" class="nav-group-item active">
+                            <span class="icon icon-folder"></span>
+                            Vendas
+                        </a>
+                    </nav>
+                </div>
+
+                <div class="pane">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Produto</th>
+                                <th>Preço Un.</th>
+                                <th>Qtd</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="venda in vendas">
+                                <td>
+                                    {{venda.cliente}}
+                                </td>
+                                <td>
+                                    {{venda.produto}}
+                                </td>
+                                <td>
+                                    {{venda.preco}}
+                                </td>
+                                <td>
+                                    {{venda.qtd}}
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary"
+                                        @click="editSale(venda)">Editar</button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div id="modal" v-if="openModal">
+                    <div class="wrap">
+                        <div class="toolbar toolbar-header toolbar-modal">
+                            <h3 class="title" v-if="mode=='cadastro'">
+                                Cadastro de Venda
+                            </h3>
+                            <h3 class="title" v-if="mode=='edicao'">
+                                Editar Venda
+                            </h3>
+
+                        </div>
+                        <form method="" action="" class="pane-body" id="cadastro-cliente">
+
+                            <div class="form-group">
+
+                                <select v-model="sale.cliente" class="form-control">
+                                    <option value="{{c.nome}}" v-for="c in clientes"> {{c.nome}} </option>
+                                </select>
+
+                                <select v-model="sale.produto" class="form-control">
+                                    <option value="{{p.nome}}" v-for="p in produtos"> {{p.nome}} </option>
+                                </select>
+
+                                <div class="form-group" v-if="mode=='edicao'">
+                                    <input type="text" class="form-control" placeholder="Preço" v-model="sale.preco" />
+                                </div>
+
+                                <input type="text" class="form-control" placeholder="Quantidade" v-model="sale.qtd" />
+
+                                <button type="button" id="salvar" @click="clientStoreOrUpdate"
+                                    class="btn btn-positive">Salvar</button>
+                                <button type="button" id="fechar" class="btn btn-negative"
+                                    @click="openModal=false">Fechar</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="toolbar toolbar-footer">
+            <h1 class="title">Footer</h1>
+        </footer>
+    </div>
+
+</body>
+
+<!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
+<script src="vue.js"></script>
+<script>
+    var read = require('read-file-utf8')
+    var loki = require('lokijs');
+    var db = new loki('db.json');
+    var data = read(__dirname + '/db.json');
+    db.loadJSON(data);
+    window.vue = require('vue');
+
+    //var vendas = db.addCollection('vendas');  
+    var vendas = db.getCollection('vendas');
+    var clientes = db.getCollection('clientes');
+    var produtos = db.getCollection('produtos');
+
+
+    new Vue({
+        el: '#app',
+
+        data: {
+            vendas: [],
+            clientes: [],
+            mode: '',
+            sale: {
+                Cliente: '',
+                produto: '',
+                preco: 0,
+                qtd: 0
+            },
+
+            openModal: false
+        },
+        mounted: function () {
+            this.produtos = produtos.data;
+            this.clientes = clientes.data;
+            this.vendas = vendas.data;
+            console.log(this.clientes);
+        },
+
+        methods: {
+            editClient: function (client) {
+                this.mode = 'edicao';
+                this.openModal = true;
+                this.client = client;
+            },
+
+            createClient: function () {
+                this.mode = "cadastro";
+                this.openModal = "true";
+                this.client = {
+                    nome: '',
+                    cpf: '',
+                    telefone: ''
+                }
+            },
+
+            clientStoreOrUpdate: function () {
+                if (typeof this.client.$loki != 'undefined') {
+                    clientes.update(this.client);
+                } else {
+                    clientes.insert(this.client);
+                }
+                db.save();
+                this.openModal = false;
+            }
+
+        }
+    })
+</script>
+
+</html>
