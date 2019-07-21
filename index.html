@@ -50,7 +50,7 @@
     </header>
     <div class="window-content">
       <div class="pane-group">
-       
+
         <div class="pane-sm sidebar">
           <nav class="nav-group">
             <h5 class="nav-group-title">Menu</h5>
@@ -102,10 +102,10 @@
           <div class="wrap">
             <div class="toolbar toolbar-header toolbar-modal">
               <h3 class="title" v-if="mode=='cadastro'">
-                Cadastro de Clientes
+                Cadastro de Cliente
               </h3>
               <h3 class="title" v-if="mode=='edicao'">
-                Editar Clientes
+                Editar Cliente
               </h3>
 
             </div>
@@ -132,8 +132,8 @@
     </footer>
   </div>
 
-
 </body>
+
 <!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
 <script src="vue.js"></script>
 <script>
@@ -144,7 +144,7 @@
   db.loadJSON(data);
   window.vue = require('vue');
   var clientes = db.getCollection('clientes');
-  console.log(db);
+
   new Vue({
     el: '#app',
     data: {
