@@ -137,13 +137,14 @@
 <!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
 <script src="vue.js"></script>
 <script>
+
   var read = require('read-file-utf8')
   var loki = require('lokijs');
   var db = new loki('db.json');
   var fileExists = require('file-exists');
 
   var data = '';
-  if (fileExists(__dirname + '/db.json')) {
+  if (fileExists.sync(__dirname + '/db.json')) {
     data = read(__dirname + '/db.json');
     db.loadJSON(data);
   } else {
@@ -154,8 +155,6 @@
   }
 
   window.vue = require('vue');
-
-
   var clientes = db.getCollection('clientes');
 
   new Vue({
