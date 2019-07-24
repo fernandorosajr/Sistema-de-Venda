@@ -32,7 +32,7 @@
                     </button>
                 </div>
 
-                <button class="btn btn-primary" @click="createClient">
+                <button class="btn btn-primary" @click="createSale">
                     <span class="icon icon-home icon-text"></span>
                     Nova Venda
                 </button>
@@ -55,7 +55,7 @@
                     <nav class="nav-group">
                         <h5 class="nav-group-title">Menu</h5>
                         <a href="index.html" class="nav-group-item ">
-                        <span class="icon icon-home"></span>
+                            <span class="icon icon-home"></span>
                             Clientes
                         </a>
                         <a href="produtos.html" class="nav-group-item">
@@ -77,7 +77,8 @@
                                 <th>Produto</th>
                                 <th>Preço Un.</th>
                                 <th>Qtd</th>
-                                <th></th>
+                                <th>Total</th>
+                                <th>Opções</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -95,6 +96,9 @@
                                     {{venda.qtd}}
                                 </td>
                                 <td>
+                                    {{venda.qtd*venda.preco}}
+                                </td>
+                                <td>
                                     <button type="button" class="btn btn-primary"
                                         @click="editSale(venda)">Editar</button>
                                 </td>
@@ -107,7 +111,7 @@
                     <div class="wrap">
                         <div class="toolbar toolbar-header toolbar-modal">
                             <h3 class="title" v-if="mode=='cadastro'">
-                                Cadastro de Venda
+                                Nova Venda
                             </h3>
                             <h3 class="title" v-if="mode=='edicao'">
                                 Editar Venda
@@ -119,11 +123,13 @@
                             <div class="form-group">
 
                                 <select v-model="sale.cliente" class="form-control">
-                                    <option value="{{c.nome}}" v-for="c in clientes"> {{c.nome}} </option>
+                                    <!-- <option value="{{c.nome}}" v-for="c in clientes"> {{c.nome}} </option>-->
+                                    <option v-for="c in clientes"> {{c.nome}} </option>
                                 </select>
 
                                 <select v-model="sale.produto" class="form-control">
-                                    <option value="{{p.nome}}" v-for="p in produtos"> {{p.nome}} </option>
+                                    <!--    <option value="{{p.nome}}" v-for="p in produtos"> {{p.nome}} </option> -->
+                                    <option v-for="p in produtos"> {{p.nome}} </option>
                                 </select>
 
                                 <div class="form-group" v-if="mode=='edicao'">
@@ -132,7 +138,7 @@
 
                                 <input type="text" class="form-control" placeholder="Quantidade" v-model="sale.qtd" />
 
-                                <button type="button" id="salvar" @click="clientStoreOrUpdate"
+                                <button type="button" id="salvar" @click="saleStoreOrUpdate"
                                     class="btn btn-positive">Salvar</button>
                                 <button type="button" id="fechar" class="btn btn-negative"
                                     @click="openModal=false">Fechar</button>
@@ -152,7 +158,7 @@
 
 <!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
 <script src="vue.js"></script>
-<script>
+<script type="text/javascript">
     var read = require('read-file-utf8')
     var loki = require('lokijs');
     var db = new loki('db.json');
@@ -160,7 +166,8 @@
     db.loadJSON(data);
     window.vue = require('vue');
 
-    //var vendas = db.addCollection('vendas');  
+    // var vendas = db.addCollection('vendas'); 
+    // db.save(); 
     var vendas = db.getCollection('vendas');
     var clientes = db.getCollection('clientes');
     var produtos = db.getCollection('produtos');
@@ -168,49 +175,53 @@
 
     new Vue({
         el: '#app',
-
         data: {
+            // mode: '',
+            openModal: false,
             vendas: [],
             clientes: [],
-            mode: '',
+            produtos: [],
+
             sale: {
                 Cliente: '',
                 produto: '',
                 preco: 0,
-                qtd: 0
-            },
-
-            openModal: false
+                qtd: 1
+            }
         },
+
         mounted: function () {
             this.produtos = produtos.data;
             this.clientes = clientes.data;
             this.vendas = vendas.data;
-            console.log(this.clientes);
+            // console.log(this.clientes);
         },
 
         methods: {
-            editClient: function (client) {
+            editSale: function (sale) {
                 this.mode = 'edicao';
                 this.openModal = true;
-                this.client = client;
+                this.sale = sale;
             },
 
-            createClient: function () {
+            createSale: function () {
                 this.mode = "cadastro";
                 this.openModal = "true";
-                this.client = {
-                    nome: '',
-                    cpf: '',
-                    telefone: ''
+                this.sale = {
+                    cliente: '',
+                    produto: '',
+                    preco: 0,
+                    qtd: 1
                 }
             },
 
-            clientStoreOrUpdate: function () {
-                if (typeof this.client.$loki != 'undefined') {
-                    clientes.update(this.client);
+            saleStoreOrUpdate: function () {
+                if (typeof this.sale.$loki != 'undefined') {
+                    vendas.update(this.sale);
                 } else {
-                    clientes.insert(this.client);
+                    vendas.insert(this.sale);
+                    // console.log(produtos.find({ nome: this.sale.produto })[0].preco);
+                    this.sale.preco = produtos.find({ nome: this.sale.produto })[0].preco;
                 }
                 db.save();
                 this.openModal = false;
