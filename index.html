@@ -140,9 +140,22 @@
   var read = require('read-file-utf8')
   var loki = require('lokijs');
   var db = new loki('db.json');
-  var data = read(__dirname + '/db.json');
-  db.loadJSON(data);
+  var fileExists = require('file-exists');
+
+  var data = '';
+  if (fileExists(__dirname + '/db.json')) {
+    data = read(__dirname + '/db.json');
+    db.loadJSON(data);
+  } else {
+    var v = db.addCollection('vendas');
+    var c = db.addCollection('clientes');
+    var p = db.addCollection('produtos');
+    db.save()
+  }
+
   window.vue = require('vue');
+
+
   var clientes = db.getCollection('clientes');
 
   new Vue({
