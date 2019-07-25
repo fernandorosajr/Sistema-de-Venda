@@ -4,15 +4,40 @@
 <head>
   <title>Sistema de vendas</title>
   <meta charset="utf-8" />
+
+  <script>
+    window.$ = window.jQuery = require('jquery');
+  </script>
+  <script src="controller.js"></script>
+
   <!-- Stylesheets -->
   <link rel="stylesheet" href="photon/dist/css/photon.css" />
   <link rel="stylesheet" href="style.css" />
+
 </head>
 
 <body>
   <div class="window" id="app">
     <header class="toolbar toolbar-header">
-      <h1 class="title">Sistema de Vendas</h1>
+      
+      <div class="btn-group pull-controll">
+        <button id="btnMinus" class="btn btn-mini btn-default">
+          <span class="icon icon-minus"></span>
+        </button>
+        
+        <button id="btnPlus" class="btn btn-mini btn-default">
+          <span class="icon icon-plus"></span>
+        </button>
+        
+        <button id="btnCancel" class="btn btn-mini btn-default">
+          <span class="icon icon-cancel"></span>
+        </button>
+      </div>
+            
+      <div class="title-envolve toolbar-actions">
+        <h1 class="title title-prima">Sistema de Vendas</h1>
+      </div>
+
       <div class="toolbar-actions">
         <div class="btn-group">
           <button class="btn btn-default">

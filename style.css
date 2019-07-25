@@ -41,3 +41,36 @@ input:focus{
     border-radius: 5px 5px 0px 0px;
     
 }
+
+.pull-controll{
+    position: absolute;
+    top: 4px;
+    right: 2px;
+}
+
+.title-prima{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+    height: 24px;
+    line-height: 24px;
+   /* border: 1px  tomato solid;*/
+}
+
+.title-envolve{
+    left: 0;
+    top: 0;
+    
+    margin-bottom: 0px;
+    margin-right: 84px;
+    margin-left: 0px;
+    
+    padding: 0px;
+    padding-left: 84px;
+
+    height: 28px;
+    
+    /*border: 1px steelblue solid;*/
+    -webkit-app-region: drag;
+}
